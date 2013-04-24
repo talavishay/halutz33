@@ -123,6 +123,7 @@ if( currentTime.length != 1){
 	
 		jQuery('.date-display-single', val).text(text);
 		var link = jQuery(".views-field-title a", val).attr("href");
+                
 		jQuery("[data-date="+curDate+"]", table).bind("click.url", function(e){
 			if(typeof e.target.attributes["href"] === "undefined"){
 				e.preventDefault();
@@ -175,7 +176,14 @@ if(daysON == 5 ){
 //~ 
 jQuery("td.single-day.freeday .inner").html('<img src="/sites/default/files/styles/large/public/freeday.jpeg" style=" width: 100%;"/>');
 
-jQuery(".freeday, .freeday *, .freeday * *, .freeday * * *, .freeday * * * *, .freeday * * * * *, .freeday img").die("click.url").live("click.live", function(e){ console.log("XXX"); e.preventDefault(); return false; });
+//jQuery(".freeday, .freeday *, .freeday * *, .freeday * * *, .freeday * * * *, .freeday * * * * *, .freeday img").die("click.url").live("click.live", function(e){ 
+//    console.log("XXX"); 
+//    e.preventDefault(); 
+//    var parents = jQuery(e.currentTarget).parents(".box");
+//    console.log(parents);
+//    console.log(jQuery(".views-field-title a", parents).attr("href"));
+//    return false; 
+//});
 
 //~ OVERLAY  ###########################################3
 //~ 
