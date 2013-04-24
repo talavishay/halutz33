@@ -42,6 +42,10 @@ body.sweaver {
   margin-bottom: 299px !important;
 }
 
+html.sweaver {
+  height: auto;
+}
+
 /* Show which selector was hovered/clicked */
 
 .sweaver-hovered {
@@ -472,7 +476,7 @@ body.sweaver {
   padding-right: 0 !important;
 }
 
-/* Custom css */
+/* Plugin advanced : Custom css */
 
 #sweaver .form-floater .form-submit,
 #sweaver .form-floater .form-item {
@@ -490,6 +494,17 @@ body.sweaver {
 
 #sweaver .form-item-sweaver-plugin-custom-css textarea{
   width:100%;
+}
+
+/* Plugin advanced : Context */
+
+#sweaver-frontend #sweaver-advanced .context-container input{
+  width: 50px;
+}
+
+#sweaver-frontend #sweaver-advanced .context-container textarea{
+  width: 95% !important;
+  height: 110px !important;
 }
 
 /* link for 'theme styles' tab */
@@ -814,6 +829,15 @@ body.sweaver {
 
 #sweaver_plugin_editor #full-path .active .selector-popup-opener {
   display: block;
+}
+
+#sweaver_plugin_editor #full-path .deploy-selectors {
+  cursor: pointer;
+  float: left;
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 /* Follow link */

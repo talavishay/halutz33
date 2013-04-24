@@ -16,7 +16,7 @@ class sweaver_plugin_themesettings extends sweaver_plugin {
       $sweaver_style = $sweaver->get_current_style();
       if (isset($sweaver_style->themesettings) && !empty($sweaver_style->themesettings)) {
         global $conf;
-        $theme_settings_name = str_replace('/', '_', 'theme_'. $sweaver->get_theme_key() .'_settings');
+        $theme_settings_name = str_replace('/', '_', 'theme_' . $sweaver->get_theme_key() . '_settings');
         $conf[$theme_settings_name] = unserialize($sweaver_style->themesettings);
       }
     }
@@ -48,7 +48,7 @@ class sweaver_plugin_themesettings extends sweaver_plugin {
     drupal_prepare_form('system_theme_settings', $form, $form_state);
     // We need to unset the #type, otherwise a nested form is created, which breaks in IE7.
     unset($form['#type']);
-    
+
     // Convert all fieldsets to buttons. The content of those fieldsets
     // will be moved into the Sweaver popup.
     $i = 1;
@@ -63,20 +63,20 @@ class sweaver_plugin_themesettings extends sweaver_plugin {
 
         $title = $form[$key]['#title'];
 
-        $form['item_'. $i] = array(
-          '#markup' => '<div class="popup-link"><a href="#" id="theme-settings-link-'. $i .'">'. check_plain($title) .'</a></div>',
+        $form['item_' . $i] = array(
+          '#markup' => '<div class="popup-link"><a href="#" id="theme-settings-link-' . $i . '">' . check_plain($title) . '</a></div>',
           '#weight' => $weight++,
-        );
+          );
 
         if (isset($form[$key]['#prefix'])) {
-          $form[$key]['#prefix'] .= '<div style="display:none" id="theme-settings-data-'. $i .'">';
+          $form[$key]['#prefix'] .= '<div style="display:none" id="theme-settings-data-' . $i . '">';
         }
         else {
-          $form[$key]['#prefix'] = '<div style="display:none"id="theme-settings-data-'. $i .'">';
+          $form[$key]['#prefix'] = '<div style="display:none"id="theme-settings-data-' . $i . '">';
         }
 
         if (isset($form[$key]['#suffix'])) {
-          $form[$key]['#suffix'] = '</div>'. $form[$key]['#suffix'];
+          $form[$key]['#suffix'] = '</div>' . $form[$key]['#suffix'];
         }
         else {
           $form[$key]['#suffix'] = '</div>';
@@ -99,7 +99,7 @@ class sweaver_plugin_themesettings extends sweaver_plugin {
       '#type' => 'submit',
       '#value' => t('Apply theme settings'),
       '#prefix' => '<div class="clearfix"></div>',
-    );
+      );
 
     return $form;
   }
@@ -126,23 +126,41 @@ class sweaver_plugin_themesettings extends sweaver_plugin {
 
       // Logo and favicon.
       if (isset($form['sweaver_plugin_themesettings']['form']['logo'])) {
-        $theme_form_keys = array_merge($theme_form_keys, array('default_logo', 'logo_path', 'logo_upload'));
+        $theme_form_keys = array_merge($theme_form_keys, array(
+          'default_logo',
+          'logo_path',
+          'logo_upload'));
       }
       if (isset($form['sweaver_plugin_themesettings']['form']['favicon'])) {
-        $theme_form_keys = array_merge($theme_form_keys, array('default_favicon', 'favicon_path', 'favicon_upload'));
+        $theme_form_keys = array_merge($theme_form_keys, array(
+          'default_favicon',
+          'favicon_path',
+          'favicon_upload'));
       }
 
       // Theme specific settings.
       if (isset($form['sweaver_plugin_themesettings']['form']['theme_specific'])) {
         $theme_specific_keys = array();
-        $fapi_types = array('select', 'checkbox', 'checkboxes', 'textfield', 'textarea', 'value', 'hidden', 'radio', 'weight', 'radios');
+        $fapi_types = array(
+          'select',
+          'checkbox',
+          'checkboxes',
+          'textfield',
+          'textarea',
+          'value',
+          'hidden',
+          'radio',
+          'weight',
+          'radios');
         $this->sweaver_get_theme_specific_keys($form['sweaver_plugin_themesettings']['form']['theme_specific'], $theme_specific_keys, $fapi_types);
         $theme_form_keys = array_merge($theme_form_keys, $theme_specific_keys);
       }
 
+
       // Other variables which are set by other form alters.
-      // All keys must be put in a $form['#sweaver_other_themesettings'];
-      $theme_form_keys = array_merge($theme_form_keys, $form['sweaver_plugin_themesettings']['form']['#sweaver_other_themesettings']);
+      // All keys must be put in a $form['sweaver_plugin_themesettings']['form']['other_theme_settings'];
+      $other_theme_settings = explode(',', $values['other_theme_settings']);
+      $theme_form_keys = array_merge($theme_form_keys, $other_theme_settings);
 
       // Only save the necessary theme values.
       foreach ($values as $fkey => $fvalue) {
@@ -159,7 +177,7 @@ class sweaver_plugin_themesettings extends sweaver_plugin {
         $theme_name = $form['#current_theme'];
 
         // Rename when just uploaded.
-        if (isset($form['sweaver_plugin_themesettings']['form']['#'. $file])) {
+        if (isset($form['sweaver_plugin_themesettings']['form']['#' . $file])) {
           $type = str_replace('_path', '', $file);
           $source_path = $form['sweaver_plugin_themesettings']['form']['#' . $file];
           $dest_draft = 'public://sweaver/' . $type . '_' . $theme_name . '_' . $style_id . '_draft.' . $form['sweaver_plugin_themesettings']['form']['#' . $file . '_extension'];
@@ -173,7 +191,7 @@ class sweaver_plugin_themesettings extends sweaver_plugin {
           $type = str_replace('_path', '', $file);
           $parts = pathinfo($theme_values[$file]);
           $temp_path = $theme_values[$file];
-          $dest_draft = 'public://sweaver/' . $type . '_'. $theme_name . '_' . $style_id . '_draft.' . $parts['extension'];
+          $dest_draft = 'public://sweaver/' . $type . '_' . $theme_name . '_' . $style_id . '_draft.' . $parts['extension'];
           file_unmanaged_move($temp_path, $dest_draft, FILE_EXISTS_REPLACE);
           $theme_values[$file] = $dest_draft;
         }
@@ -194,7 +212,9 @@ class sweaver_plugin_themesettings extends sweaver_plugin {
         $theme_values_serialized = serialize($theme_values);
         db_query("UPDATE {sweaver_style_draft} set themesettings = :themesettings WHERE style_id = :style_id", array(':themesettings' => $theme_values_serialized, ':style_id' => $style_id));
         if ($form_state['publish']) {
-          variable_set($theme_key, $theme_values);
+          $old_settings = variable_get($theme_key);
+          $new_settings = array_merge($old_settings, $theme_values);
+          variable_set($theme_key, $new_settings);
           db_query("UPDATE {sweaver_style} set themesettings = :themesettings WHERE style_id = :style_id", array(':themesettings' => $theme_values_serialized, ':style_id' => $style_id));
         }
 
@@ -329,17 +349,17 @@ class sweaver_plugin_themesettings extends sweaver_plugin {
 
     // Toggle settings
     $toggles = array(
-      'logo'                 => t('Logo'),
-      'name'                 => t('Site name'),
-      'slogan'               => t('Site slogan'),
-      'mission'              => t('Mission statement'),
-      'node_user_picture'    => t('User pictures in posts'),
+      'logo' => t('Logo'),
+      'name' => t('Site name'),
+      'slogan' => t('Site slogan'),
+      'mission' => t('Mission statement'),
+      'node_user_picture' => t('User pictures in posts'),
       'comment_user_picture' => t('User pictures in comments'),
-      'search'               => t('Search box'),
-      'favicon'              => t('Shortcut icon'),
-      'primary_links'        => t('Primary links'),
-      'secondary_links'      => t('Secondary links'),
-    );
+      'search' => t('Search box'),
+      'favicon' => t('Shortcut icon'),
+      'primary_links' => t('Primary links'),
+      'secondary_links' => t('Secondary links'),
+      );
 
     // Some features are not always available
     $disabled = array();
@@ -355,12 +375,15 @@ class sweaver_plugin_themesettings extends sweaver_plugin {
       '#type' => 'fieldset',
       '#title' => t('Toggle display'),
       '#description' => t('Enable or disable the display of certain page elements.'),
-    );
+      );
     foreach ($toggles as $name => $title) {
       if ((!$key) || in_array($name, $features)) {
-        $form['theme_settings']['toggle_' . $name] = array('#type' => 'checkbox', '#title' => check_plain($title), '#default_value' => $this->sweaver_has_theme_setting('toggle_' . $name, $key, $revision_theme_settings));        // Disable checkboxes for features not supported in the current configuration.
-        if (isset($disabled['toggle_'. $name])) {
-          $form['theme_settings']['toggle_'. $name]['#disabled'] = TRUE;
+        $form['theme_settings']['toggle_' . $name] = array(
+          '#type' => 'checkbox',
+          '#title' => check_plain($title),
+          '#default_value' => $this->sweaver_has_theme_setting('toggle_' . $name, $key, $revision_theme_settings)); // Disable checkboxes for features not supported in the current configuration.
+        if (isset($disabled['toggle_' . $name])) {
+          $form['theme_settings']['toggle_' . $name]['#disabled'] = TRUE;
         }
       }
     }
@@ -369,7 +392,7 @@ class sweaver_plugin_themesettings extends sweaver_plugin {
     if (!element_children($form['theme_settings'])) {
       // If there is no element in the theme settings fieldset then do not show
       // it -- but keep it in the form if another module wants to alter.
-      $form['theme_settings']['#access'] = FALSE;
+      $form['sweaver_plugin_themesettings']['#access'] = FALSE;
     }
 
     // Logo settings
@@ -379,14 +402,13 @@ class sweaver_plugin_themesettings extends sweaver_plugin {
         '#title' => t('Logo image settings'),
         '#description' => t('If toggled on, the following logo will be displayed.'),
         '#attributes' => array('class' => array('theme-settings-bottom')),
-      );
+        );
       $form['logo']['default_logo'] = array(
         '#type' => 'checkbox',
         '#title' => t('Use the default logo'),
         '#default_value' => $this->sweaver_has_theme_setting('default_logo', $key, $revision_theme_settings),
         '#tree' => FALSE,
-        '#description' => t('Check here if you want the theme to use the logo supplied with it.')
-      );
+        '#description' => t('Check here if you want the theme to use the logo supplied with it.'));
       $form['logo']['logo_path'] = array(
         '#type' => 'textfield',
         '#title' => t('Path to custom logo'),
@@ -397,34 +419,29 @@ class sweaver_plugin_themesettings extends sweaver_plugin {
         '#type' => 'file',
         '#title' => t('Upload logo image'),
         '#maxlength' => 40,
-        '#description' => t("If you don't have direct file access to the server, use this field to upload your logo.")
-      );
+        '#description' => t("If you don't have direct file access to the server, use this field to upload your logo."));
     }
 
     if ((!$key) || in_array('favicon', $features)) {
       $form['favicon'] = array(
         '#type' => 'fieldset',
         '#title' => t('Shortcut icon settings'),
-        '#description' => t("Your shortcut icon, or 'favicon', is displayed in the address bar and bookmarks of most browsers.")
-      );
+        '#description' => t("Your shortcut icon, or 'favicon', is displayed in the address bar and bookmarks of most browsers."));
       $form['favicon']['default_favicon'] = array(
         '#type' => 'checkbox',
         '#title' => t('Use the default shortcut icon.'),
         '#default_value' => $this->sweaver_has_theme_setting('default_favicon', $key, $revision_theme_settings),
-        '#description' => t('Check here if you want the theme to use the default shortcut icon.')
-      );
+        '#description' => t('Check here if you want the theme to use the default shortcut icon.'));
       $form['favicon']['favicon_path'] = array(
         '#type' => 'textfield',
         '#title' => t('Path to custom icon'),
         '#default_value' => $this->sweaver_has_theme_setting('favicon_path', $key, $revision_theme_settings),
-        '#description' => t('The path to the image file you would like to use as your custom shortcut icon.')
-      );
+        '#description' => t('The path to the image file you would like to use as your custom shortcut icon.'));
 
       $form['favicon']['favicon_upload'] = array(
         '#type' => 'file',
         '#title' => t('Upload icon image'),
-        '#description' => t("If you don't have direct file access to the server, use this field to upload your shortcut icon.")
-      );
+        '#description' => t("If you don't have direct file access to the server, use this field to upload your shortcut icon."));
     }
 
     if ($key) {
@@ -435,7 +452,7 @@ class sweaver_plugin_themesettings extends sweaver_plugin {
           '#type' => 'fieldset',
           '#title' => t('Theme-engine-specific settings'),
           '#description' => t('These settings only exist for the themes based on the %engine theme engine.', array('%engine' => $themes[$key]->prefix)),
-        );
+          );
         $function($form, $form_state);
       }
 
@@ -454,7 +471,9 @@ class sweaver_plugin_themesettings extends sweaver_plugin {
       $default_theme = !empty($GLOBALS['theme_key']) ? $GLOBALS['theme_key'] : NULL;
       $GLOBALS['theme_key'] = $key;
 
-      // Process the theme and all its base themes.
+      $other_theme_settings = array();
+
+      // Process the theme and (all its base themes).
       foreach ($theme_keys as $theme) {
         // Include the theme-settings.php file.
         $filename = DRUPAL_ROOT . '/' . str_replace("/$theme.info", '', $theme_info->filename) . '/theme-settings.php';
@@ -462,12 +481,17 @@ class sweaver_plugin_themesettings extends sweaver_plugin {
           require_once $filename;
         }
 
-        // Call theme-specific settings.
         $function = $theme . '_form_system_theme_settings_alter';
         if (function_exists($function)) {
+          $form_before = $form;
           $function($form, $form_state);
+          $diff = array_diff_key($form, $form_before);
+          $other_theme_settings = array_merge($other_theme_settings, $this->sweaver_recursive_list_children($diff));
         }
       }
+
+      $other_theme_settings_str = implode(',', $other_theme_settings);
+      $form['other_theme_settings'] = array('#type' => 'hidden', '#value' => $other_theme_settings_str);
 
       // Restore the original current theme.
       if (!is_null($default_theme)) {
@@ -479,6 +503,25 @@ class sweaver_plugin_themesettings extends sweaver_plugin {
     }
 
     return $form;
+  }
+
+  function sweaver_recursive_list_children($form, $children = array(), $known_children = array()) {
+    if (empty($known_children)) {
+      $first_children = element_children($form);
+    }
+    else {
+      $first_children = $known_children;
+    }
+    foreach ($first_children as $child) {
+      $second_children = element_children($form[$child]);
+      if (!empty($second_children)) {
+        $children = $this->sweaver_recursive_list_children($form[$child], $children, $second_children);
+      }
+      else {
+        $children[] = $child;
+      }
+    }
+    return $children;
   }
 
   /**
