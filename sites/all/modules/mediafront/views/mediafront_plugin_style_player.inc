@@ -17,6 +17,35 @@
 class mediafront_plugin_style_player extends views_plugin_style {
 
   /**
+   * Initialize a style plugin.
+   *
+   * @param $view
+   * @param $display
+   * @param $options
+   *   The style options might come externally as the style can be sourced
+   *   from at least two locations. If it's not included, look on the display.
+   */
+  function init(&$view, &$display, $options = NULL) {
+    parent::init($view, $display, $options);
+
+    /**
+     * This was keeping the view from being able to specify how many entries
+     * were in the playlist... if we want this, we need to figure out how
+     * to bring in the preset settings for pageLimit into the view to limit
+     * the amount of results displayed.
+     *
+    $view->display_handler->set_option('pager', array(
+      'type' => 'some',
+      'options' => $view->display_handler->options['pager']['options'],
+    ));
+     *
+     */
+
+    // We want to get the total rows.
+    $view->get_total_rows = TRUE;
+  }
+
+  /**
    * Set the default options.
    */
   function option_definition() {
@@ -37,14 +66,14 @@ class mediafront_plugin_style_player extends views_plugin_style {
    * Renders the media player.
    */
   function render() {
-    $output = '';
-
-    // Check for live preview.
-    if (!empty($this->view->live_preview)) {
-      return t('MediaFront views are not compatible with live preview.');
+    if (empty($this->options['mediafront_preset'])) {
+      return t('You must select a preset for the MediaFront Player style in the view.');
     }
 
     // Now render the media player for this view.
-    return theme($this->theme_functions(), array( 'view' => $this->view, 'preset' => $this->options['mediafront_preset'] ));
+    return mediafront_get_player($this->options['mediafront_preset'], array(
+      'id' => mediafront_views_player_pre_render($this->view),
+      'playlist' => mediafront_get_playlist_from_view($this->view)
+    ));
   }
 }

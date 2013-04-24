@@ -134,8 +134,8 @@ function mediafront_preset_form($form, &$form_state, $preset) {
 
    // Set up the parameters for the player.
    $preset = (array)$preset;
-   $params = array( 'admin' => true, 'player' => $preset['player'], 'preset' => $preset['name'] );
-   $params = $preset['settings'] ? array_merge( $preset['settings'], $params ) : $params;
+   $params = array('admin' => true, 'player' => $preset['player'], 'preset' => $preset['name']);
+   $params = !empty($preset['settings']) ? array_merge($preset['settings'], $params) : $params;
 
    $form['preview']['player'] = array(
       '#type' => 'item',
@@ -143,7 +143,7 @@ function mediafront_preset_form($form, &$form_state, $preset) {
    );
 
    // Get all of the settings for this player.
-   $preset['settings'] = mediafront_get_settings( $preset['player'], $params );
+   $preset['settings'] = mediafront_get_settings($preset['player'], $params);
 
    $form['settings'] = array(
       '#type' => 'fieldset',
@@ -184,17 +184,24 @@ function mediafront_preset_form($form, &$form_state, $preset) {
       '#value' => $preset['player'],
    );
 
-   $form['settings']['player_settings'] = array(
+   $form['settings']['player_settings_wrapper'] = array(
       '#type' => 'fieldset',
       '#title' => t('Player Settings'),
       '#weight' => -8,
       '#collapsible' => true,
       '#collapsed' => true,
+   );
+
+   $form['settings']['player_settings_wrapper']['player_settings'] = array(
+      '#type' => 'vertical_tabs',
       '#tree' => TRUE,
    );
 
+   // Get the player settings.
+   $player_settings = &$form['settings']['player_settings_wrapper']['player_settings'];
+
    // Now add the player settings form to this fieldset.
-   $form['settings']['player_settings'] = array_merge( mediafront_player_settings_form($preset), $form['settings']['player_settings'] );
+   $player_settings = array_merge(mediafront_player_settings_form($preset), $player_settings);
 
    // Add the player to player settings.
    $form['settings']['connect'] = array(
@@ -205,7 +212,7 @@ function mediafront_preset_form($form, &$form_state, $preset) {
    );
 
    $result = mediafront_preset_get_presets();
-   $presets = array();
+   $presets = array(0=>'-- None --');
    foreach( $result as $pid => $otherPreset ) {
       if( $otherPreset['name'] != $preset['name'] ) {
          $presets[$otherPreset['name']] = $otherPreset['name'];
@@ -218,7 +225,7 @@ function mediafront_preset_form($form, &$form_state, $preset) {
         '#multiple' => TRUE,
         '#title' => t('Make this preset the Control Bar for'),
         '#description' => t('Select which preset you would like to control using this preset.'),
-        '#default_value' => $preset['connect']['iscontroller'],
+        '#default_value' => !empty($preset['connect']['iscontroller']) ? $preset['connect']['iscontroller'] : 0,
         '#options' => $presets
      );
 
@@ -227,7 +234,7 @@ function mediafront_preset_form($form, &$form_state, $preset) {
         '#multiple' => TRUE,
         '#title' => t('Make this preset the Playlist for'),
         '#description' => t('Select which preset you would like to play this playlist.'),
-        '#default_value' => $preset['connect']['isplaylist'],
+        '#default_value' => !empty($preset['connect']['isplaylist']) ? $preset['connect']['isplaylist'] : 0,
         '#options' => $presets
      );
    }
@@ -266,7 +273,7 @@ function mediafront_preset_validate($form, &$form_state) {
  */
 function mediafront_preset_array_flatten($array,$return=array()) {
   foreach( $array as $key => $value ) {
-    if( is_array($value) ) {
+    if (is_array($value) && ($key != 'plugins')) {
       $return = mediafront_preset_array_flatten($value, $return);
     }
     else {
@@ -293,7 +300,7 @@ function mediafront_preset_submit($form, &$form_state) {
   );
 
   // Now set the player settings that are only different from the defaults.
-  $preset['settings'] = mediafront_get_settings( $preset['player'], mediafront_preset_array_flatten($form_state['values']['player_settings']) );
+  $preset['settings'] = mediafront_get_settings($preset['player'], mediafront_preset_array_flatten($form_state['values']['player_settings']));
 
   // Save this preset.
   mediafront_preset_save( $preset );
@@ -343,7 +350,7 @@ function mediafront_preset_create_form($form, &$form_state) {
     '#type' => 'textfield',
     '#title' => t('Preset Name'),
     '#maxlength' => MEDIAFRONT_PRESET_MAX_LENGTH,
-    '#description' => t('Spaces are NOT allowed; punctuation is not allowed except for periods, hyphens, apostrophes, and underscores.'),
+    '#description' => t('Spaces are NOT allowed; punctuation is not allowed except for periods, apostrophes, and underscores.'),
     '#required' => TRUE,
     '#weight' => -10,
   );
@@ -517,6 +524,12 @@ function mediafront_preset_save( $preset ) {
   // Save or update a preset.
   drupal_write_record( 'mediafront_preset', $preset, $pid );
 
+  // Save this preset in cache.
+  cache_set('mediafront_preset_' . $preset['name'], $preset);
+
+  // Display a message.
+  drupal_set_message('Preset (' . $preset['name'] . ') settings have been saved.');
+
   // Tell the player about this preset save.
   $player_save = $preset['player'] . '_mediafront_preset_save';
   if( function_exists( $player_save ) ) {
@@ -532,9 +545,15 @@ function mediafront_preset_save( $preset ) {
  * @return <type>
  */
 function mediafront_preset_get_default_presets() {
-  $default_presets = module_invoke_all('mediafront_default_presets');
-  drupal_alter('mediafront_default_presets', $default_presets);
-  return $default_presets;
+  $default_presets = &drupal_static(__FUNCTION__);
+  if ($default_presets) {
+    return $default_presets;
+  }
+  else {
+    $default_presets = module_invoke_all('mediafront_default_presets');
+    drupal_alter('mediafront_default_presets', $default_presets);
+    return $default_presets;
+  }
 }
 
 /**
@@ -574,37 +593,57 @@ function mediafront_preset_get_presets() {
  *
  * @param <type> $preset_name
  */
-function mediafront_preset_load( $preset_name ) {
-  return mediafront_get_preset( $preset_name );
+function mediafront_preset_load($preset_name) {
+  return mediafront_get_preset($preset_name);
 }
 
 /**
  * Get's the preset.
  */
-function mediafront_get_preset( $preset_name ) {
-  // Get the preset from the database.
-  $preset = db_select('mediafront_preset', 'p')
-    ->fields('p')
-    ->condition('p.name', $preset_name)
-    ->execute()
-    ->fetchAssoc();
-  if( $preset ) {
-    $preset['settings'] = $preset['settings'] ? unserialize( $preset['settings'] ) : array();
-    $preset['connect'] = $preset['connect'] ? unserialize( $preset['connect'] ) : array();
+function mediafront_get_preset($preset_name, $reset = FALSE) {
+
+  // Get the preset from cache.
+  $cache = cache_get('mediafront_preset_' . $preset_name);
+  if (!$reset && $cache) {
+    if (!empty($cache->data['settings']['id'])) {
+      unset($cache->data['settings']['id']);
+    }
+    return $cache->data;
   }
   else {
-    // Get all of the default presets.
-    $default_presets = mediafront_preset_get_default_presets();
 
-    // Check to see if this preset exists.
-    if (isset($default_presets[$preset_name])) {
-      // Make this our preset
-      $preset = $default_presets[$preset_name];
+    // Get the preset from the database.
+    $preset = db_select('mediafront_preset', 'p')
+      ->fields('p')
+      ->condition('p.name', $preset_name)
+      ->execute()
+      ->fetchAssoc();
+    if( $preset ) {
+      $preset['settings'] = $preset['settings'] ? unserialize( $preset['settings'] ) : array();
+      $preset['connect'] = $preset['connect'] ? unserialize( $preset['connect'] ) : array();
     }
-  }
+    else {
+      // Get all of the default presets.
+      $default_presets = mediafront_preset_get_default_presets();
 
-  // Return the preset.
-  return $preset;
+      // Check to see if this preset exists.
+      if (isset($default_presets[$preset_name])) {
+        // Make this our preset
+        $preset = $default_presets[$preset_name];
+      }
+    }
+
+    // Make sure to unset the id.
+    if (!empty($preset['settings']['id'])) {
+      unset($preset['settings']['id']);
+    }
+
+    // Now cache it.
+    cache_set('mediafront_preset_' . $preset_name, $preset);
+
+    // Return the preset.
+    return $preset;
+  }
 }
 
 /**

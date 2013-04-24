@@ -37,17 +37,10 @@ function minplayer_theme() {
  * Return the media source.
  */
 function minplayer_get_sources($type, &$params) {
-
-  // If no node object exists, then get the node.
-  if (!isset($params['nodeObj']) && isset($params['node']) && $params['node']) {
-    $params['nodeObj'] = mediafront_get_node($params['node'], NULL);
-  }
-
-  // Return the media sources from this node.
-  if (isset($params['nodeObj']) &&
-      isset($params['nodeObj']['mediafiles']) &&
-      !empty($params['nodeObj']['mediafiles'][$type])) {
-    return $params['nodeObj']['mediafiles'][$type];
+  if (isset($params['node']) &&
+      isset($params['node']['mediafiles']) &&
+      !empty($params['node']['mediafiles'][$type])) {
+    return $params['node']['mediafiles'][$type];
   }
 
   return '';
@@ -60,11 +53,6 @@ function theme_minplayer($variables) {
 
   // Get the parameters.
   $params = $variables['params'];
-
-  // Set the id.
-  if (isset($params['nodeObj'])) {
-    $params['id'] = 'player-' . $params['nodeObj']['nid'];
-  }
 
   // Get the attributes.
   $attributes = html5_media_get_attributes($params);
@@ -79,6 +67,7 @@ function theme_minplayer($variables) {
   $mediasrc = array();
   if ($media = minplayer_get_sources('media', $params)) {
     $media = isset($media['media']) ? $media['media'] : array_shift($media);
+    $media = !empty($media[0]) ? $media[0] : $media;
     $mediasrc['value'] = $media->path;
     if (!empty($media->filemime)) {
       $mediasrc['filemime'] = $media->filemime;
@@ -87,7 +76,7 @@ function theme_minplayer($variables) {
 
   // Set the poster image.
   $imgsrc = '';
-  if ($images = minplayer_get_sources('images', $params)) {
+  if ($images = minplayer_get_sources('image', $params)) {
     $imgsrc = isset($images['preview']) ? $images['preview'] : $images['image'];
     $imgsrc = is_string($imgsrc) ? $imgsrc : $imgsrc->path;
     $attributes['poster'] = $imgsrc;
@@ -149,7 +138,12 @@ function minplayer_get_player_params() {
 }
 
 function minplayer_get_templates() {
-  return mediafront_get_directories('html5_media','player/templates');
+  $info = html5_media_get_player_info();
+  $templates = array();
+  foreach ($info['templates'] as $name => $template) {
+    $templates[$name] = $name;
+  }
+  return $templates;
 }
 
 /**

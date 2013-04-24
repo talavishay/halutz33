@@ -62,6 +62,3 @@
   background-image: url(images/arrow-rtl.png);
   background-position: 5px 6px;
 }
-#admin-menu-wrapper {
-    direction: ltr !important;
-}
