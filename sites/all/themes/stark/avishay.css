@@ -216,6 +216,8 @@ body.admin-menu #admin-menu{
     right: 0;
     top: 0;
     width: 100% !important;
+    height: 23px;
+
     z-index: 2;
     text-align: right;
 }
