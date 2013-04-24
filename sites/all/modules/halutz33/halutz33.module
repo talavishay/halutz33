@@ -1,0 +1,58 @@
+<?php
+
+function halutz33_css_alter(&$css) {
+  // Remove defaults.css file.
+//  unset($css[drupal_get_path('module', 'system') . '/.css']);
+  unset($css['sites/all/themes/stark/layout.css']);
+  unset($css['sites/all/modules/calendar/css/calendar_multiday.css']);
+  unset($css['sites/all/modules/date/date_api/date.css']);
+  
+//dpm($css);
+}
+
+function halutz33_form_node_form_alter(&$form, &$form_state, $form_id) {
+	if($form_id === "block-admin-display-form"){	
+		//~ dpm($form);
+        }
+}
+function halutz33_form_block_admin_display_form_alter(&$form, &$form_state) {
+//		dpm($form);
+		//unset($form['block_regions']['#value']['sidebar_second']);
+}
+
+function halutz33_overlay_child_initialize() {
+
+  drupal_add_js(drupal_get_path('module', 'halutz33') . '/halutz33.js');
+  
+  drupal_add_css(drupal_get_path('module', 'halutz33') . '/halutz33.css');
+  
+}
+
+
+function halutz33_preprocess_html(&$vars) {
+	//~ dpm($vars['classes_array']);
+  $vars['classes_array'][] = 'new-class';
+}
+function halutz33_preprocess_page(&$variables){
+		//~ dpm($variables);
+}
+function halutz33_page_alter(&$page){
+	//~ dpm($page);
+	unset($page['sidebar_second']);
+}
+	
+function halutz33_module_implements_alter(&$implementations, $hook) {
+	//~ dpm($hook);dpm($implementations);
+		    if ($hook === 'form_block_admin_display_form_alter') {
+//				dpm($implementations);
+			}
+
+}
+function halutz33_theme_registry_alter(&$theme_registry) {
+	//~ dpm($theme_registry);
+}
+function halutz33_menu_alter(&$items) {
+  $items['user']['type'] = MENU_CALLBACK;
+  $items['user/register']['type'] = MENU_CALLBACK;
+  //~ $items['user/password']['type'] = MENU_CALLBACK;
+}

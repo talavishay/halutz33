@@ -1,0 +1,944 @@
+#dateBg{
+	display : none;
+}
+/*
+.empty{
+display:none !important;
+}
+*/
+.monthCss{
+	font-family: exoblack;
+	font-size: 152px;
+	left: -2px;
+	letter-spacing: 1px;
+	position: relative;
+	top: -23px;
+	text-align: center;
+}
+    
+body.ff .monthCss{
+	left: 11px;
+	letter-spacing: -6px;	
+}
+    body.chrome.admin-menu{
+    margin-top: 8px;
+    
+    }
+    
+    div.view-calendar div.month-view table td{
+    display:none;
+    }
+    div.view-calendar div.month-view table td.showme{
+    display: table-cell;
+    }
+/*
+    div.view-calendar div.month-view table td.showme.no-entry{
+    display: none !important;
+    }
+*/
+    
+/*
+//  ###########3   LAYOUT   -START
+*/
+
+
+/*
+#block-block-1 {
+
+
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-color: transparent;
+    background-image: url("/sites/all/themes/stark/img/bottom_bg.png");
+    background-origin: padding-box;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    background-size: contain;
+/*
+    bottom: -258px;
+    height: 259px;
+    left: -31px;
+    position: absolute;
+    width: 850px;
+    z-index: 9;
+    
+
+  }
+  * */
+
+#page-wrapper{
+
+/*
+    background-color: #FFD600;
+*/
+    width: 100%;
+    
+}
+
+body.page-calendar-node-field-date #page-wrapper{
+
+    background-color: transparent;
+    background-image: none !important;
+    
+}
+
+body div#page-wrapper{
+	display: inline-block;
+    position: relative;
+/*
+    width: 960px;
+*/
+    z-index: 1;
+}
+
+body.sidebar-first #content {
+    float: left;
+width: 84%;
+padding: 0 1%;
+}
+body.sidebar-first #sidebar-first {
+	position: relative;
+    background-clip: border-box;
+    background-image: url("/sites/all/themes/stark/img/strip.png");
+     background-color: #FFD600;
+    background-origin: padding-box;
+    background-repeat: repeat;
+    float: right;
+	width: 136px;
+	min-height: 696px;
+}
+body.front.sidebar-first #sidebar-first {
+		height: 765px;
+
+}
+body.sidebar-first #main #content > div.section{
+	margin-right: 20px;
+	margin-left:0px;
+}
+
+body.sidebar-first  div#sidebar-first div.section {
+padding-right: 10px;
+
+}
+body.sidebar-first  div#sidebar-first input[type=text]{
+	width: 90%;
+}
+
+#sidebar-first  #slogan_space{
+	height: 335px;
+}
+#sidebar-first div#site-slogan {
+	    background-image: url("/sites/all/themes/stark/img/slogan.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 345px;
+    left: -12px;
+    position: absolute;
+    top: 0;
+    width: 169px;
+}
+body.ie8 #monthName12{
+top: 69px !important;
+right:10px !important;
+}
+
+
+#sidebar-first #site-slogan-txt{
+	color: #FFD600 !important;
+    font-size: 41px;
+    font-weight: bold;
+    letter-spacing: -2px;
+    line-height: 31px;
+    padding-right: 33px;
+    margin-top: 27px;
+    text-align: center;
+    
+    width: 101px;
+/*
+    
+	transform: rotate(-4deg);
+    -webkit-transform: rotate(-4deg);
+    -moz-transform: rotate(-4deg);
+    -o-transform: rotate(-4deg);
+*/
+
+
+    -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.99756405, M12=0.06975647, M21=-0.06975647, M22=0.99756405,sizingMethod='auto expand')";
+    filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.99756405, M12=0.06975647, M21=-0.06975647, M22=0.99756405,sizingMethod='auto expand');
+
+    -moz-transform:  matrix(0.99756405, -0.06975647, 0.06975647, 0.99756405, 0, 0);
+
+    -webkit-transform:  matrix(0.99756405, -0.06975647, 0.06975647, 0.99756405, 0, 0);
+
+    -o-transform:  matrix(0.99756405, -0.06975647, 0.06975647, 0.99756405, 0, 0);
+
+
+}
+
+.view-calendar .views-field.views-field-edit-node{
+	position: absolute;
+	top: -4px;
+	background: black;
+	padding: 0 3px;
+	font-size: 10px;
+	right: -5px;
+	border:1px dashed yellow;
+	color: white !important;
+	
+}
+.view-calendar .views-field.views-field-edit-node a{
+	color: white !important;
+}
+body.admin-menu  .view-calendar .views-field.views-field-edit-node a{
+	color: white !important;
+}
+
+#page .messages {
+margin-left: 20px;
+margin-right: 20px;
+}
+div#toolbar a#edit-shortcuts {
+    position: absolute;
+    top: 32px;
+}
+body.admin-menu{
+   margin-top: 20px;
+}
+
+body.admin-menu #admin-menu{
+	top: 24px !important;
+	position: absolute !important;
+}
+#navigation{
+     background-color: #2D2D2D;
+    background-image: none;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 100% !important;
+    z-index: 2;
+    text-align: right;
+}
+#navigation .section {
+	margin:0px;
+}
+#navigation h2 {
+	display: none;
+}
+#navigation ul{
+     font-size: 16px;
+    font-weight: bold;
+    height: 15px;
+    width: 100%;
+       margin-right: 26px;
+}
+#navigation ul li:hover{
+	background-color: gray;
+}
+#navigation a {
+	text-decoration: none !important;
+	color: white;
+}
+.view-calendar a{
+	text-decoration: none !important;
+}
+@media screen and (max-width:999px)
+{
+	#container { width: 800px; }
+	
+	#extras
+	{
+		clear: left;
+		float: none;
+		margin: 0 0 0 225px;
+		width: 550px;
+	}
+}
+
+body{
+
+/*
+    background-color: #ffd600;
+*/
+/*
+    background: url("/sites/all/themes/stark/img/bg-calnder.png") repeat scroll 0 0 transparent;
+*/
+	margin:0px auto;
+	padding:0px;
+	padding-top: 22px;
+	width: 1024px;
+    font-family: alef, haim, arial, monospace;
+    font-style: normal;
+    font-weight: normal;
+}
+	body{
+		width: 1124px;
+	}
+
+@media screen and (min-width:1100px){
+	body{
+		width: 1124px;
+	}
+	.view-calendar span.views-field-title{
+		left: 8px !important;
+		overflow: visible !important;
+	}
+	
+	.view-calendar .month-view table {
+/*
+		padding: 10px 10px 0 10px;
+		border-spacing: 15px 0 !important;
+*/
+	}
+	#slash{
+	  font-family: exoblack;
+    font-size: 36px;
+    }
+   
+    
+}
+/*
+
+@media screen and (max-width:1100px)  {
+	#slash{
+		font-family: serif;
+		display: inline-block;
+		position: relative;
+		
+		right: 2px;
+		font-size: 50px;
+		line-height: 23px;
+		font-weight: bold;
+	}	
+	body.ff 	#slash{
+		font-size: 40px;
+		right: 0px;
+	}
+	.view-calendar .month-view table {
+		border-spacing: 5px 0 !important;
+		padding: 10px 10px 0 39px;
+		
+	}
+	
+	
+}
+*/
+/*
+body.ie7{
+	margin:0px;
+}
+*/
+body.ff #page-wrapper, 
+body.chrome #page-wrapper{
+/*
+	background-image: url("/sites/all/themes/stark/img/bg_yellow_grad.svg") ;
+*/
+}
+/*
+body.ff div#block-block-1,
+body.chrome div#block-block-1{
+	background-image: url("/sites/all/themes/stark/img/bg_yellow_grad.svg");
+}
+*/
+/*
+body.ff #page-wrapper, body.chrome #page-wrapper{
+background-image: url("/sites/all/themes/stark/img/bg_yellow_grad.svg");
+}
+*/
+
+
+body:not(.page-calendar-node-field-date) #main > #content .region > *:not(#block-block-1), 
+body:not(.page-calendar-node-field-date) #main > #content > .section > *:not(.region){
+	margin-right: 20px;
+	margin-left:10px;
+}
+body:not(.page-calendar-node-field-date) #main > #content.column {
+        background-color: white;
+/*
+    background-image: url("/sites/all/themes/stark/img/bg_yellow_grad.svg");
+*/
+ background-position: 50% 50%;
+background-size: 205% 213%;   
+
+}
+body:not(.page-calendar-node-field-date) #block-system-main > .content{
+padding-bottom: 25px;
+}
+
+body.page-calendar-node-field-date div#page-wrapper div#page div#main-wrapper div#main.clearfix div#content.column div.section{
+	margin: 0px;
+}
+/*
+body.sidebar-second.page-calendar-node-field-date #content {
+    width: 850px;
+}
+*/
+.view-calendar .month-view table {
+	border-collapse: separate;
+
+	direction: rtl;
+        width: 100%;
+/*
+    width:820px;
+*/
+}
+div#block-block-1 {
+    background-color: #FFD600;
+    float: left;
+    height: 195px;
+    width: 750px;
+}
+
+th a{
+text-transform: none;
+}
+/*
+.calendar-calendar .month-view table td{
+    border-spacing: 5px 0 !important;
+}
+*/
+body{
+background: url("/sites/all/themes/stark/img/bg-calnder.png") repeat scroll 0 0 transparent;
+}
+/*
+body.page-calendar-node-field-date #content{
+*/
+#block-system-main > .content {
+    min-height: 340px;
+}
+body #content{
+	
+ 
+/*
+	  content: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAARklEQVQYlWNgwA+MgViQkIJ3QKzEAFVpjEPBf5giJaiAMRYF72DWKSEJlKMpgNsgiCTxH5sCbG7AqgBZ4V2sCv7//08QAwAUfjKKBs+BFgAAAABJRU5ErkJggg==");
+*/
+/*
+    padding: 15px  !important;
+*/
+/*
+    width: 820px ;
+*/
+}
+.view-calendar tbody {
+    border-top: 0px solid #CCCCCC;
+}
+.view-calendar .month-view .full td.single-day div.monthview, .calendar-calendar .week-view .full td.single-day div.weekview, .calendar-calendar .day-view .full td.single-day div.dayview {
+    background: none repeat scroll 0 0 transparent;
+   
+}
+.view-calendar td{
+    padding-left: 1px;
+    padding-right: 1px;
+    cursor: pointer;
+    vertical-align: top;
+    width: 178px;
+    overflow-x: hidden;
+}
+.view-calendar td.date-box .box{
+	padding: 3px 5px !important;
+	margin: 0 2%;
+}
+.view-calendar td.date-box .inner{
+    
+}
+.view-calendar td.single-day{
+/*
+      min-height: 69px !important;
+*/
+}
+.view-calendar td.date-box .inner{
+    position: relative;
+/*
+    padding-top: 39px;
+*/
+}
+.view-calendar .inner p {
+	padding-top: 0px;
+}
+.view-calendar .monthday{
+/*
+    background-color: transparent !important;
+   
+    height: 38px !important;
+    overflow: hidden;
+    position: absolute;
+    right: 0px;
+    top: -2px;
+*/
+	font-family: 'ExoBlack' !important;
+	 font-size: 36px;
+	    display: inline-block;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    vertical-align: top;
+    vertical-align: top;
+padding-top: 2px;
+margin-top: 0px;
+line-height: 34px;
+
+}
+body.ie .view-calendar .monthday{
+	top: 2px;
+}
+
+.view-calendar span.views-field-title{
+        background: none repeat scroll 0 0 transparent;
+    display: inline-block;
+    font-size: 21px;
+    font-weight: bold;
+    line-height: 18px;
+    margin: 0;
+    padding: 0;
+    vertical-align: top;
+    width: 58%;
+}
+.view-calendar span.views-field-title .field-content a,
+.view-calendar span.views-field-title .field-content {
+display: inline-block;
+}
+
+.view-calendar td[data-day-of-month="20"] span.views-field-title,
+.view-calendar td[data-day-of-month="21"] span.views-field-title,
+.view-calendar td[data-day-of-month="22"] span.views-field-title,
+.view-calendar td[data-day-of-month="23"] span.views-field-title,
+.view-calendar td[data-day-of-month="25"] span.views-field-title,
+.view-calendar td[data-day-of-month="26"] span.views-field-title,
+.view-calendar td[data-day-of-month="27"] span.views-field-title,
+.view-calendar td[data-day-of-month="28"] span.views-field-title,
+.view-calendar td[data-day-of-month="29"] span.views-field-title,
+.view-calendar td[data-day-of-month="30"] span.views-field-title,
+.view-calendar td[data-day-of-month="31"] span.views-field-title{
+	width:55%;
+/*
+	background: red;
+*/
+	
+}
+.view-calendar td[data-day-of-month="1"] span.views-field-title,
+.view-calendar td[data-day-of-month="2"] span.views-field-title,
+.view-calendar td[data-day-of-month="3"] span.views-field-title,
+.view-calendar td[data-day-of-month="5"] span.views-field-title,
+.view-calendar td[data-day-of-month="6"] span.views-field-title,
+.view-calendar td[data-day-of-month="7"] span.views-field-title,
+.view-calendar td[data-day-of-month="8"] span.views-field-title,
+.view-calendar td[data-day-of-month="9"] span.views-field-title{
+	width: 65%;
+}
+
+
+.view-calendar td[data-day-of-month="24"] span.views-field-title{
+	width:54%;
+}
+td.single-day div.inner{
+/*
+padding:2px 5px;
+*/
+/*
+   background: none repeat scroll 0 0 red;
+*/
+    overflow: hidden;
+    padding: 2px 5px;
+/*
+    width: 55%;
+*/
+}
+/*
+.view-calendar .views-field-body p{
+*/
+.view-calendar .views-field-body p{
+    
+    
+    margin: 0px;
+    
+}
+/*
+.view-calendar .views-field-body p{
+*/
+td.single-day {
+font-size: 11px;
+
+    font-weight: 500;
+    line-height: 9px;
+    text-align: justify;
+}
+
+.view-calendar td.date-box.concert{
+	border-color: #ef7d1c ;
+}
+.view-calendar .concert *,
+.view-calendar .concert * *,
+.view-calendar .concert * * *,
+.view-calendar .concert{
+    color: #ef7d1c ;
+}
+.view-calendar td.single-day .concert{
+	    color: #ef7d1c ;
+}
+.party{}
+.workshope{}
+.view-calendar td.date-box.pub .box{
+    border-color: #7d6d5d;
+}
+.view-calendar .pub ,
+.view-calendar .pub *,
+.view-calendar .pub * *,
+.view-calendar .pub * * *, 
+.view-calendar .pub * * * * {
+      color:#7d6d5d ;
+}
+td.date-box.atiqa .box{
+    background-color: #ffd600 ;
+    border-color:  #6c4324 ;    
+}
+.atiqa, .atiqa *, .atiqa * *, .atiqa * * *{ 
+   color: #7d6d5d ;    
+}
+/*
+//# party
+*/
+.view-calendar td.date-box.party .box{
+	background-color: #ef7d1c !important;
+}
+.view-calendar td.date-box.party,
+.view-calendar td.date-box.party *,
+.view-calendar td.date-box.party * *,
+.view-calendar td.date-box.party * * *,
+.view-calendar td.date-box.party * * * *{
+
+	color: white ;    
+}
+.view-calendar td.single-day.party,
+.view-calendar td.single-day.party *,
+.view-calendar td.single-day.party * *,
+.view-calendar td.single-day.party * * *,
+.view-calendar td.single-day.party * * * *{
+
+	color:#ef7d1c ;    
+}
+/*
+//# workshope
+*/
+.view-calendar td.date-box.workshope{
+	border-color: white;
+	
+}
+.view-calendar td.date-box.workshope,
+.view-calendar td.date-box.workshope *,
+.view-calendar td.date-box.workshope * *,
+.view-calendar td.date-box.workshope * * *,
+.view-calendar td.date-box.workshope * * * *,
+.view-calendar td.single-day.workshope,
+.view-calendar td.single-day.workshope *,
+.view-calendar td.single-day.workshope * *,
+.view-calendar td.single-day.workshope * * *,
+.view-calendar td.single-day.workshope * * * *{
+
+	color:#6dc1d1 ;    
+}
+/*
+// # tarbut
+*/
+.view-calendar td.date-box.tarbut .box{
+	background-color: #6dc1d1 ;
+}
+.view-calendar .date-box.tarbut, 
+.view-calendar .date-box.tarbut *, 
+.view-calendar .date-box.tarbut * *, 
+.view-calendar .date-box.tarbut * * *{
+   color:white ;
+}
+.view-calendar .single-day.tarbut,
+.view-calendar .single-day.tarbut *, 
+.view-calendar .single-day.tarbut * *,.view-calendar .single-day.tarbut * * *{
+   color:#439FB0 ;
+}
+
+/*
+
+td.date-box hr.top{
+    margin-top: 1px;
+}
+*/
+.view-calendar tr {
+    background-color: transparent !important;
+}   
+.view-calendar td.date-box div.bottom {
+      background: none repeat scroll 0 0 gray;
+    margin: 0 auto;
+}
+.view-calendar td.date-box div.bottom ,
+.view-calendar td.date-box hr.top{
+    width: 90%;
+}
+.view-calendar td{
+    border: none;
+    border-color: gray !important;
+/*
+    font-family: "Hayim-new";
+*/
+}
+.view-calendar td.date-box .inner {
+    border-style : solid;
+    border-width: 2px 0;
+/*
+    height: 23px !important;
+*/
+}
+/*
+.view-calendar td.single-day .inner {
+*/
+.view-calendar td.date-box > .box > .inner {
+    min-height: 65px !important;
+    padding-top: 2px;
+}
+.view-calendar span.views-field.views-field-body{
+/*
+  font-size: 9px;
+    font-weight: bolder;
+    line-height: 9px;
+*/
+}
+.view-calendar .views-field-title > .field-content > a > span {
+    float: right;
+    margin-left: 5px !important;
+    vertical-align: top;
+}
+.views-field-field-date {
+/*
+        bottom: 0;
+*/
+    font-size: 12px;
+    line-height: 12px;
+    padding-bottom: 2px;
+/*
+    position: absolute;
+*/
+    
+}
+.calendar-calendar td .inner div, 
+.calendar-calendar td .inner div a{
+    background: transparent;
+}
+#edit-title{
+    text-align: right;
+    direction: rtl;
+}
+
+/*
+.view-calendar tr.date-box {
+    height: 75px !important;
+    max-height: 75px !important;
+}
+*/
+.views-field-title{
+	display: inline-block;
+    
+}
+
+
+
+
+form#contact-site-form .form-text {
+
+    width: 95%;
+}
+.calendar-calendar  td:hover {
+/*
+      text-shadow: 1px 0 0 black;
+*/
+}
+.calendar-calendar td.atiqa:hover {
+/*
+    text-shadow: 1px 0 0 white;
+*/
+}
+  
+.block-block-1-freetext-table{
+ width: 100%;
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-color: transparent;
+    background-image: url("/sites/all/themes/stark/img/bottom_bg.png");
+    background-origin: padding-box;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.block-block-1-freetext-table tbody {
+    border-top: 0px solid #CCCCCC;
+}
+
+.rtejustify p{
+margin:0px;
+}
+#freeText{
+	line-height: 9px;
+}
+ table#freeText.block-block-1-freetext-table tbody tr td:nth-child(4){
+ 	line-height: 12px;
+ }
+ table#freeText.block-block-1-freetext-table tbody tr:first-child{
+     height: 10px !important;
+ }
+ .date-nav-wrapper .date-nav {
+    border: 0 none;
+    top: 50px;
+    height: auto;
+    left: 0;
+    margin-bottom: 10px;
+    min-height: 30px;
+    position: fixed;
+}
+ .date-nav-wrapper .date-nav ul li{
+ background: white;
+ box-shadow: 0px 0px 3px 3px gray;
+}
+.date-nav-wrapper .item-list .pager li {
+    padding: 0px;
+    margin :0px
+}
+#block-simplenews-1 > h2 {
+    font-size: 20px;
+    margin-bottom: 0px;
+}
+#block-simplenews-1 .form-item {
+    margin: 0px;
+    
+    
+    
+}
+
+#block-simplenews-1 input[type=text]{
+	width: 95%;
+}
+#block-simplenews-1 * {
+    font-size: 12px !important;
+    margin: 0;
+    
+}
+.view-calendar .date-nav-wrapper{
+    height: 0px;
+    }
+.view-calendar td.multi-day .contents > * {
+/*
+    border: 1px solid;
+*/
+    display: block;
+}
+
+.view-calendar td.multi-day .contents.calendar.field_date {
+ position: relative !important;
+    width: auto !important;
+
+}
+.view-calendar td.multi-day .inner > .item > .view-item-calendar > .calendar{
+/*
+	height: auto !important;
+*/
+	overflow: visible !important;
+}
+.view-calendar .month-view .full td.multi-day .calendar.monthview .contents, 
+.view-calendar .week-view .full td.multi-day .calendar.weekview .contents {
+   font-size: 18px;
+    position: relative;
+    right: 5px;
+    text-align: right;
+/*
+    width: auto;
+*/
+}
+.calendar-calendar .month-view .full td.multi-day div.monthview,
+.calendar-calendar .week-view .full td.multi-day div.weekview,
+.calendar-calendar .day-view .full td.multi-day div.dayview {
+    height: auto;
+    margin: 0px;
+    overflow: visible;
+    position: relative;
+}
+/*###########################3*/
+
+.view-calendar .date-nav-wrapper .date-heading h3 {
+	display: none;
+}
+.view-calendar .date-nav-wrapper{
+	direction: ltr ;
+}
+/*  #########################
+DISPLAY : NONE  
+*/
+body.page-admin-config-content-ckeditor div#page div#content.clearfix div#console.clearfix div.messages,
+.hide,
+.view-calendar thead ,
+.views-field-term-node-tid,
+.view-calendar [headers="שבת"],
+.view-calendar [headers="ראשון"],
+.view-calendar [headers="שבת"],
+.view-calendar [headers="ראשון"],
+.view-calendar  td .cutoff,
+body.page-calendar-node-field-date #header  {
+	display: none;
+}
+.freeday.single-day .inner {
+/*
+    background-image: url("/sites/all/themes/stark/img/freeday.png");
+    background-size: cover;
+    margin: 10px 0 !important;
+*/
+}
+
+
+
+
+/*  ##########################################################*/
+ .monthName{
+color: #FFD600;
+/*
+text-shadow: 1px 1px 1px #666;
+*/
+font-size : 22px;
+}
+ .month, .year{
+color: #FFF;
+}
+form#date-node-form > div > div.form-item-title,
+form#date-node-form > div > div.field-type-taxonomy-term-reference{
+	display: inline;
+}
+
+/*  ##########################################################
+// overlay
+*/
+#overlay{
+   background: url("/viewer.png") no-repeat scroll 0 0 transparent;
+    border: 1px solid;
+    display: none;
+    height: 1000px;
+    left: 92px;
+    opacity: 0.45;
+    pointer-events: none;
+    position: absolute;
+    top: 2px;
+    width: inherit;
+    z-index: 9;
+}
+#overlay_controls_wrap{
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	    z-index: 99999;
+}
+.overlay_controls_box{
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+}
+#overlay_control{
+	background: none repeat scroll 0 0 red ;
+}
+#overlay_control_light{
+	background: none repeat scroll 0 0 green; 
+}
+#overlay_control_dark{
+	background: none repeat scroll 0 0 black; 
+}

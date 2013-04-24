@@ -1,0 +1,66 @@
+form#simplenews-admin-settings-subscription fieldset#edit-account{
+	display: none;
+}
+form#simplenews-admin-subscription #simplenews-admin-filter{
+	direction: ltr;
+	text-align: right;
+}
+form#simplenews-admin-subscription #simplenews-admin-filter .form-item {
+	float: right;
+}
+form#simplenews-admin-subscription #simplenews-admin-filter .spacer {
+	margin-left: 0;
+}
+form#simplenews-admin-subscription #simplenews-admin-filter .form-item label {
+	float: right;
+	width: 12em;
+}
+
+form#simplenews-admin-subscription #simplenews-admin-filter{
+	display: inline-block;
+}
+
+form#simplenews-admin-subscription > div > div:nth-child(2){
+	margin-right: 20px;
+}
+form#simplenews-admin-subscription select#edit-list *,
+form#simplenews-admin-subscription select#edit-list,
+form#simplenews-admin-subscription #edit-email *,
+form#simplenews-admin-subscription #edit-email {
+	direction: rtl;
+}
+form#simplenews-subscription-list-add .form-item-language,
+form#simplenews-subscription-list-add div.form-item-resubscribe,
+form#simplenews-admin-subscription table tr > :nth-child(5){
+	display: none;
+}
+form#date-node-form #edit-field-event-price{
+	display: inline-block;
+	width: 350px;
+	vertical-align: top;
+}
+
+form#date-node-form input#edit-field-event-price-und-0-value{
+	width: 95%;
+}
+
+form#date-node-form .field-type-taxonomy-term-reference.field-name-field-type {
+	width: 121px !important;
+	display: inline-block;
+	margin-left: 50px;
+}
+form#date-node-form .form-item div.description{
+	font-size: 0.8em;
+}
+
+form#date-node-form input:not(#edit-field-contact-und-0-value),
+select#edit-field-type-und{
+	box-shadow: 0px 0px 20px -2px yellow;
+}
+
+form#date-node-form #edit-field-date fieldset div.fieldset-wrapper{
+	padding-bottom: 0px;
+}
+form#date-node-form #edit-field-date fieldset div.fieldset-wrapper label[for=edit-field-date-und-0-value]{
+	position: absolute;
+}
